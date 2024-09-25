@@ -350,8 +350,9 @@ void NombreEntierInverse() {
 
     /* Conversion binaire */
     int nbr_binaire = nb; 
+
     while (nbr_binaire > 0) {
-        binaire[31 - index] = (nbr_binaire % 2) + '0'; 
+        binaire[31 - index] = (nbr_binaire % 2) + '0';   // l ajout de '0' pour converti le chiffre nbr_binaire / 2 en code ascii  
         nbr_binaire = nbr_binaire / 2; 
         index++;
     }
@@ -359,9 +360,9 @@ void NombreEntierInverse() {
 
  /* Conversion hexadécimale */
     int nbr_hex = nb;
-    index = 0; // Réinitialisation de l'index pour l'hexadécimal
+    index = 0; 
     while (nbr_hex > 0) {
-        int reste = nbr_hex % 16; // Récupérer le reste
+        int reste = nbr_hex % 16; 
         switch (reste) {
             case 10: 
                hex[7 - index] = 'A'; break;
@@ -379,11 +380,11 @@ void NombreEntierInverse() {
                 hex[7 - index] = reste + '0'; break;
 
         }
-        nbr_hex = nbr_hex / 16; // Diviser par 16 pour le prochain chiffre
+        nbr_hex = nbr_hex / 16; 
         index++;
     }
 
-    // Affichage des résultats
+   
     printf("La valeur binaire de %d est : %s\n", nb, binaire);
-    printf("La valeur hexadecimale de %d est : %s\n", nb, hex + (8 - index)); // Afficher à partir des chiffres significatifs
+    printf("La valeur hexadecimale de %d est : %s\n", nb, hex + (8 - index)); 
 }
