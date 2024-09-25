@@ -386,5 +386,5 @@ void NombreEntierInverse() {
 
    
     printf("La valeur binaire de %d est : %s\n", nb, binaire);
-    printf("La valeur hexadecimale de %d est : %s\n", nb, hex + (8 - index)); 
+    printf("La valeur hexadecimale de %d est : 0X%s\n", nb, hex + (8 - index)); 
 }
