@@ -191,26 +191,40 @@ Pour plus de simplicité, n'incluez pas l'année bissextile (sauf si vous êtes 
 */
 void ConversionAnnee() {
     float annee, mois, jours, heures, minutes, secondes;
-
+    int choix;
     printf("\n******** Challenge 5 : Conversion d'Annee *********\n");
-    printf("Veuillez entrer le nombre d'annees : ");
-    scanf("%f", &annee);
+    printf("Veuillez entrer le Nombre d'annees  : ");
+    scanf("%f", &annee); 
 
-    mois = annee * 12;
-    jours = annee * 365;
-    heures = annee * 365 * 24;
-    minutes = annee * 365 * 24 * 60;
-    secondes = annee * 365 * 24 * 60 * 60;
+    printf("   1.Mois  2.Jour  3.Heures  4.Minutes  5.Secondes \n Veuillez entrer votre choix :  ");
+    scanf("%d", &choix);
 
-    printf("%.2f annees correspondent à ");
-    printf("%.2f mois.\n",mois);
-    printf("%.2f jours.\n",jours);
-    printf("%.2f heures.\n", heures);
-    printf("%.2f minutes.\n",minutes);
-    printf("%.2f secondes.\n", secondes);
+     printf("%f annees correspondent à " , annee);
+      switch(choix) {
+         case 1 : 
+          mois = annee * 12;
+          printf("%f mois.\n",mois); 
+          break;
+         case 2 :
+          mois = annee * 365;
+          printf("%f jours.\n",jours);
 
-
-
+          break;
+         case 3 :
+           heures = annee * 365 * 24;
+         printf("%f heures.\n", heures);
+         break;
+         case 4 :
+         minutes = annee * 365 * 24 * 60;
+         printf("%f minutes.\n",minutes);
+         break;
+         case 5 : 
+             secondes = annee * 365 * 24 * 60 * 60;
+            printf("%f secondes.\n", secondes);
+            break;
+        default : 
+             printf("Choix invalide\n");   
+      }
 }
 
 
