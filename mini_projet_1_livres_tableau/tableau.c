@@ -186,6 +186,8 @@ void menu(){
         if (reponse == 0) {
             printf("Au revoir !\n");
             exit(0);
+        }else if (reponse != 0 && reponse != 1){
+            printf("Choix invalide. Veuillez reessayer.\n");
         }
     } while (reponse != '1'); 
 }
