@@ -3,6 +3,9 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+
+
+
 typedef struct contact {
     char nom[50];
     char tel[10];
@@ -17,7 +20,6 @@ void clearBuffer() {
     int c;
     while ((c = getchar()) != '\n' && c != EOF) { }
 }
-
 
 void Ajouter();
 int Rechercher();
@@ -68,6 +70,7 @@ void menu(){
 }
 
 int main() {
+    printf("Nombre total de contact %d", compteur); 
     menu();
     return 0;
 }
@@ -77,7 +80,7 @@ void Ajouter(){
      printf("********  Ajouter  ********\n ");
      printf("Veuiller remplir cette formulaire \n");
 
-     int i = compteur++;
+     int i = compteur;
 
     printf("Nom : ");
     fgets(contact[i].nom, sizeof(contact[i].nom), stdin);
@@ -94,7 +97,8 @@ void Ajouter(){
     contact[i].email[strcspn(contact[i].email, "\n")] = 0;
    
 
-     printf("\n Le Contact  ajoute avec succes --- nombre de contacts est %d : !\n" , compteur );
+     printf("\n Le Contact  ajoute avec succes \n  nombre de contacts est %d : \n" , compteur);
+     compteur++; 
 }
 void ListContact() {
     int i;
