@@ -15,7 +15,12 @@ void AfficherDetails();
 void AfficherStatistiques();
 void AfficherList();
 void AjouterReservationPardefaut();
+
+
 int RechercherParReference();
+void RechercherParNom();
+void RechercherParDate();
+void RechercherParStatut();
 
 
 void TrierParRef();

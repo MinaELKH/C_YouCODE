@@ -1,4 +1,5 @@
 #include "reservation.h"
+
 #include "style.h"
 
 
@@ -52,18 +53,14 @@ void Ajouter() {
  
 }
 void AfficherList() {
- printf("------          Afficher la liste des Patients qui ont réservé       --------\n");
-    printf("Nombre des Reservatio : %d\n", compteur);
-    printf("+----------+----------+----------+-------------+-------+----------+---------------+\n");
-    printf("|   REF    |   Nom    |  Prenom  |  Telephone  |  Age  |  Statut  |     Date      |\n");
-    printf("+----------+----------+----------+-------------+-------+----------+---------------+\n");
-    
+
+    void enteteTableau() ;// juste affichage de l entete de tableau 
     for (int i = 1; i < compteur; i++) { 
        //char statut[] =  statutToString(arrayRes[i].statut) ;
        const char* statutStr = statutToString(arrayRes[i].statut);
        const char* statutColor = getStatutColor(arrayRes[i].statut);
 
-        printf("| %-8s | %-8s | %-8s | %-11s | %-5d |%s%-8s%s| %02d/%02d/%-8d |\n",
+        printf("| %-8s | %-8s | %-8s | %-11s | %-5d |%s%-10s%s| %02d/%02d/%-7d |\n",
                arrayRes[i].reference,               
                arrayRes[i].nom,              
                arrayRes[i].prenom,             
@@ -77,20 +74,6 @@ void AfficherList() {
     }
     printf("+----------+----------+----------+-------------+-------+----------+---------------+\n");
 
-}
-
-int RechercherParReference() {
-    TriResRef_Bulle(); 
-    printf("------           Rechecher une reservation           --------\n");
-    int  index=0;
-            char ref[50];
-            printf("REF: ");
-            fgets(ref, 50, stdin);
-            ref[strcspn(ref, "\n")] = 0;
-    index  = RechercherRef_Dichotomique(ref);
-    printf(" l index est %d \n", index);
-    AfficherRef(index);
-    return index ; 
 }
 /************************************************** */
 void Modifier(void) { 
@@ -110,22 +93,16 @@ void Supprimer(void) {
     printf("\n  Le contact a ete supprime avec succes !\n");
     
 }
-
+// cette fonction est base sur la fonction 
 void AfficherDetails() { 
-       printf("------          Afficher  une reservation           --------\n");
-    int i ,  index=0;
-    char ref[50];
-            printf("REF: ");
-            fgets(ref, 50, stdin);
-            ref[strcspn(ref, "\n")] = 0;
-    index = RechercherParReference(ref);
+     printf("------          Afficher  une reservation           --------\n");
+     RechercherParReference();
 }
-
-
 
 void AfficherStatistiques(void) { 
     printf("--.\n");
 }
+
 
 
 
@@ -142,8 +119,6 @@ void TrierParNom() {
 void TrierParDate(){
     TriRes_Bulle(comparerDate) ; 
 }
-
-
 // Statut
 void TrierParStatut(){
     TriRes_Bulle(comparerStatut) ; 
@@ -152,21 +127,61 @@ void TrierParStatut(){
 
 /***************************************************** */
 
+/**************************** Recherche ************************* */
+int RechercherParReference() {
+    TrierParRef(); 
+    int  index=0;
+            char ref[50];
+            printf("REF: ");
+            fgets(ref, 50, stdin);
+            ref[strcspn(ref, "\n")] = 0;
+    index  = RechercherRef_Dichotomique(ref);
+    AfficherIndex(index);
+    return index ; 
+}
 
+void RechercherParNom(){
+    TrierParNom(); //  il va verfiver est ce que c est tri avec variable sorted sinnon il va le tri
+    int  index=0;
+   
+            char nom[50];
+            printf("Nom: ");
 
+            fgets(nom, 50, stdin);
+            nom[strcspn(nom, "\n")] = 0;
+     RechercherNom_Dichotomique(nom);
+  
+}
 
+void RechercherParDate(){
+   TrierParDate(); 
+    int  annee , jour , mois , index=0;
+            char nom[50];
+            printf("Date (ex 11-02-2024) ");
+            scanf("%d-%d-%d" , &annee , &mois , &jour );
+            DATE dat = {annee , mois , jour}; 
+    index  = RechercherDate_Dichotomique(dat);
+    printf(" l index est %d \n", index);
+    AfficherIndex(index);
 
+}
 
-
-
-
-
-
-
+void RechercherParStatut(){
+   /* TrierParRef(); 
+    int  index=0;
+            char nom[50];
+            printf("Nom: ");
+            fgets(nom, 50, stdin);
+            ref[strcspn(nom, "\n")] = 0;
+    index  = RechercherRef_Dichotomique(n);
+    printf(" l index est %d \n", index);
+    AfficherIndex(index);
+    */ 
+}
 
 // Fonction pour ajouter des reservations par defaut
 void AjouterReservationPardefaut() {
-    char noms[10][50] = {"Amine", "Hamed", "Nadir", "Saadi", "Zahid", "Jaber", "Salem", "Rafik", "Farid", "Azhar"};
+    char noms[10][50] = {"Amine", "Hamed", "Nadir", "Saadi", "Zahid", "Nadir", "Salem", "Rafik", "Nadir", "Azhar"};
     char prenoms[10][50] = {"Hassna", "Fatima", "Omar", "Khadija", "Hassan", "Leila", "Youssef", "Amina", "Rachid", "Sara"};
     char tels[10][15] = {"0612345678", "0698765432", "0712345678", "0798765432", "0812345678", "0898765432", "0912345678", "0998765432", "0512345678", "0598765432"};
     int ages[10] = {25, 60, 22, 28, 35, 16, 40, 75, 18, 27};
@@ -186,8 +201,7 @@ void AjouterReservationPardefaut() {
         arrayRes[compteur].date.mois = mois[j];
         arrayRes[compteur].date.annee = annee[j];
         genererRef(arrayRes[compteur].reference); // appel un fonction Generer la reference pour chaque reservation
-        
-          
+
         compteur++;
 
     }

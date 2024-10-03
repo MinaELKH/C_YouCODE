@@ -47,7 +47,7 @@ void genererRef(char *ref);
 void clearScreen(); 
 
 void formulaire();
-void AfficherRef(int i);
+void AfficherIndex(int i);
 
 /*  tri     */
 void TriRes_Bulle();   int comparerREF();   int comparerNom();  int comparerDate(); int comparerStatut();  void TriResRef_Bulle();//  TriResRef_Bulle   je l utlise pour tester
@@ -55,8 +55,10 @@ void TriRes_Bulle();   int comparerREF();   int comparerNom();  int comparerDate
 /*  recherche */
 
 int RechercherRef_Dichotomique();
+void RechercherNom_Dichotomique();  // on peut avoir plusieur reservation avec meme nom donc on fait la affiche a l interieur du fonction pour evite un tableau des index dans le retour 
+int RechercherDate_Dichotomique();
 
 /*   menu et sous menu */
-void menu();     void menuTrier(); 
+void menu();     void menuTrier();   void menuRechercher();  void enteteTableau() ; 
 
 #endif // UTIL_H

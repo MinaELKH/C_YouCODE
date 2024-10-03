@@ -62,10 +62,12 @@ void menu() {
                  menuTrier(); 
                 break;}
               
-            case 6: {
-                RechercherParReference(); 
-                break;
-            }
+            case 6:{// Rechercher
+                 clearScreen();
+                 printf("/********* Rechercher par :  ***********/ \n 1: Reference\t  2: Nom\t  3: Date\t  4:Statue \n");
+                 menuRechercher(); 
+                break;}
+            
             case 7:
                 AfficherStatistiques(); 
                 break;
@@ -96,6 +98,8 @@ void clearScreen() {
 }
 
 /*********************     tri     ************************************* */
+
+// cette fonction not use , elle est remplace par triRes_Bulle
 void TriResRef_Bulle(){
     int i, j;
     Str_RES temp;
@@ -117,9 +121,7 @@ void TriResRef_Bulle(){
         }
     }
 
-}
-
-
+}   
 void TriRes_Bulle(int (*comparer)(Str_RES  ,Str_RES)){
     int i, j;
     Str_RES temp;
@@ -142,8 +144,6 @@ void TriRes_Bulle(int (*comparer)(Str_RES  ,Str_RES)){
     }
 
 }
-
-
 int comparerREF(Str_RES a , Str_RES b){
      return    strcmp(a.reference, b.reference) ; 
 }
@@ -157,16 +157,20 @@ int comparerDate(Str_RES a , Str_RES b){
              { return 1 ; }
         else if (a.date.annee == b.date.annee &&  a.date.mois == b.date.mois && a.date.jour > b.date.jour )
              {  return 1 ;}
-        else {return 0 ; }
+         else if (a.date.annee == b.date.annee &&  a.date.mois == b.date.mois && a.date.jour == b.date.jour )
+             {  return 0 ;}
+        else {return -1 ; }
 }
-
 int comparerStatut(Str_RES a , Str_RES b){
         if(a.statut > b.statut ){
-            return 1 ; 
-        } else {return 0 ; }
+            return 1 ; }
+        else if(a.statut == b.statut){return 0 ; }
+        else {return -1 ; }
 }
 /************************************   recherche *********************** */
-int RechercherRef_Dichotomique(char* reference) {
+
+// cette fonction est fonctionnelle mais j utlise la 2ieme plus general pour eviter la reptition 
+int RechercherRef_Dichotomique(char* reference ) {
     int low = 0, high = compteur - 1;
 
     while (low <= high) {
@@ -183,24 +187,117 @@ int RechercherRef_Dichotomique(char* reference) {
             high = mid - 1;  // Chercher dans la moitié inférieure
         }
     }
-
     return -1;  // Référence non trouvée
 }
 
 
+/*int RechercherNom_Dichotomique( char* nomRech) {
+    int low = 0, high = compteur - 1;
+    Str_RES resRech ;
+    
+    while (low <= high) {
+        int mid = (low + high) / 2;
+        int cmp = strcmp(arrayRes[mid].nom, nomRech);
+        if (cmp == 0) {
+            return mid;  
+        }
+
+        if (cmp < 0) {
+            low = mid + 1;  // Chercher dans la moitié supérieure
+        } else {
+            high = mid - 1;  // Chercher dans la moitié inférieure
+        }
+    }
+    return -1;  // Référence non trouvée
+}*/
+void RechercherNom_Dichotomique(char* nomRech) {
+    int low = 0, high = compteur - 1;
+    int index = -1;
+    
+    // Étape 1 : Recherche dichotomique pour trouver une occurrence
+    while (low <= high) {
+        int mid = (low + high) / 2;
+        int cmp = strcmp(arrayRes[mid].nom, nomRech);
+        
+        if (cmp == 0) {
+            index = mid;  // Trouver une occurrence
+            break;
+        }
+
+        if (cmp < 0) {
+            low = mid + 1;  // Chercher dans la moitié supérieure
+        } else {
+            high = mid - 1;  // Chercher dans la moitié inférieure
+        }
+    }
+
+    // Étape 2 : Si aucune occurrence n'est trouvée, afficher un message et quitter
+    if (index == -1) {
+        printf("Aucune réservation trouvée pour le nom: %s\n", nomRech);
+        return;
+    }
+
+    // Étape 3 : Afficher toutes les occurrences du nom (avant et après `index`)
+    // Afficher les occurrences avant `index`
+    enteteTableau() ; // juste affichage de l entete de tableau 
+    int i = index;
+    while (i >= 0 && strcmp(arrayRes[i].nom, nomRech) == 0) {
+        AfficherIndex(i);  // Fonction qui affiche la réservation à l'index donné
+        i--;
+    }
+
+    // Afficher les occurrences après `index`
+    i = index + 1;
+    while (i < compteur && strcmp(arrayRes[i].nom, nomRech) == 0) {
+        AfficherIndex(i);  // Fonction qui affiche la réservation à l'index donné
+        i++;
+    }
+}
+
+
+int RechercherDate_Dichotomique( DATE dateRech ) {
+     printf("HELLO");
+    int low = 0, high = compteur - 1;
+    Str_RES resRech ;
+    resRech.date.annee = dateRech.annee ; 
+    resRech.date.mois = dateRech.mois ; 
+    resRech.date.jour = dateRech.jour ; 
+    
+    while (low <= high) {
+        int mid = (low + high) / 2;
+
+        //int cmp = strcmp(arrayRes[mid].nom, nom);
+        int cmp =   comparerDate(arrayRes[mid] ,resRech ) ;
+
+        if (cmp == 0) {
+            return mid;  
+        }
+
+        if (cmp < 0) {
+            low = mid + 1;  // Chercher dans la moitié supérieure
+        } else {
+            high = mid - 1;  // Chercher dans la moitié inférieure
+        }
+    }
+
+    return -1;  // Référence non trouvée
+}
+
 /************************************   Afficher une Reseration *********************** */
-void AfficherRef(int i) { 
+void AfficherIndex(int i) { 
+
     if (i>0){
-        printf("+----------+----------+----------+-------------+-------+----------+---------------+\n");
-       printf("|   REF    |   Nom    |  Prenom  |  Telephone  |  Age  |  Statut  |     Date      |\n");
-       printf("+----------+----------+----------+-------------+-------+----------+---------------+\n");
-       printf("| %-8s | %-8s | %-8s | %-11s | %-5d | %-8s | %02d/%02d/%-8d |\n",
+    const char* statutStr = statutToString(arrayRes[i].statut);
+       const char* statutColor = getStatutColor(arrayRes[i].statut);
+
+        printf("| %-8s | %-8s | %-8s | %-11s | %-5d |%s%-10s%s| %02d/%02d/%-7d |\n",
                arrayRes[i].reference,               
                arrayRes[i].nom,              
                arrayRes[i].prenom,             
                arrayRes[i].telephone,         
                arrayRes[i].age,               
-               statutToString(arrayRes[i].statut), 
+               //statutToString(arrayRes[i].statut), 
+               statutColor, statutStr, RESET,
                arrayRes[i].date.jour, 
                arrayRes[i].date.mois, 
                arrayRes[i].date.annee);   
@@ -212,7 +309,7 @@ void AfficherRef(int i) {
 }
 
 
-
+/********************    formulaire modif ************************** */
 
 void formulaire( int index){
     Str_RES res;
@@ -268,4 +365,27 @@ void menuTrier(){
        default : printf("choix invalide");  break;
     }
     AfficherList() ;
+}
+void menuRechercher(){
+    int choix;
+     printf("Choix : ");
+     scanf("%d", &choix);
+                     // Vider le tampon d'entrée avant d'utiliser fgets pour éviter les problèmes
+              fflush(stdin);  
+    switch(choix) {
+        case 1 : RechercherParReference();  break; 
+        case 2 :  RechercherParNom();  break; 
+        case 3 : RechercherParDate();  break;
+        case 4 : RechercherParStatut();  break;
+       default : printf("choix invalide");  break;
+    }
+    getchar();
+    AfficherList() ;
+}
+
+void enteteTableau(){
+        printf("|------          Afficher la liste des Patients qui ont reserve       ------------|\n");
+    printf("+----------+----------+----------+-------------+-------+----------+---------------+\n");
+    printf(BLUE"|   REF    |   Nom    |  Prenom  |  Telephone  |  Age  |  Statut  |     Date      |\n"RESET);
+    printf("+----------+----------+----------+-------------+-------+----------+---------------+\n");
 }
