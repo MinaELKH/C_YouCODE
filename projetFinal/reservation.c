@@ -160,23 +160,20 @@ void RechercherParDate(){
             printf("Date (ex 11-02-2024) ");
             scanf("%d-%d-%d" , &annee , &mois , &jour );
             DATE dat = {annee , mois , jour}; 
-    index  = RechercherDate_Dichotomique(dat);
-    printf(" l index est %d \n", index);
-    AfficherIndex(index);
-
+   RechercherDate_Dichotomique(dat);
 }
 
 void RechercherParStatut(){
-   /* TrierParRef(); 
-    int  index=0;
-            char nom[50];
-            printf("Nom: ");
-            fgets(nom, 50, stdin);
-            ref[strcspn(nom, "\n")] = 0;
-    index  = RechercherRef_Dichotomique(n);
-    printf(" l index est %d \n", index);
-    AfficherIndex(index);
-    */ 
+       printf("Entrez le statut (0: VALIDE, 1: REPORTE, 2: ANNULE, 3: TRAITE) : ");
+    int statut_input;
+    scanf("%d", &statut_input);
+    
+    // Validation du statut
+    while (statut_input < 0 || statut_input > 3) {
+        printf("Statut invalide. Veuillez choisir entre 0 et 3 : ");
+        scanf("%d", &statut_input);
+    }
+  RechercherStatut_Linaire(statut_input) ; 
 }
 
 // Fonction pour ajouter des reservations par defaut
@@ -184,10 +181,11 @@ void AjouterReservationPardefaut() {
     char noms[10][50] = {"Amine", "Hamed", "Nadir", "Saadi", "Zahid", "Nadir", "Salem", "Rafik", "Nadir", "Azhar"};
     char prenoms[10][50] = {"Hassna", "Fatima", "Omar", "Khadija", "Hassan", "Leila", "Youssef", "Amina", "Rachid", "Sara"};
     char tels[10][15] = {"0612345678", "0698765432", "0712345678", "0798765432", "0812345678", "0898765432", "0912345678", "0998765432", "0512345678", "0598765432"};
-    int ages[10] = {25, 60, 22, 28, 35, 16, 40, 75, 18, 27};
-    int jour[10] = {2, 10, 7, 4, 5, 16, 30, 8, 18, 27}; //on peut pas mettre 08 ou 07 car il concedere comme a base de octe et nous somme sur base de decimal 
-    int mois[10] = {2, 4, 2, 5, 10, 16, 14, 15, 10, 27};  
-    int annee[10] = {2024, 2023, 2022, 2028, 2025, 2021, 2024, 2022, 2018, 2027};
+    int ages[10] = {25, 60, 28, 28, 35, 16, 40, 75, 18, 27};
+
+    int jour[10] = {2,    10,    22,   4,    5,    22,   30,   22,   28,   27}; //on peut pas mettre 08 ou 07 car il concedere comme a base de octe et nous somme sur base de decimal 
+    int mois[10] = {2,    4,     5,    6,    10,   5,   11,    5,    8,   12};  
+    int annee[10] ={2024, 2023, 2022, 2028, 2025, 2022, 2024, 2022, 2018, 2027};
     Statut statuts[10] = {VALIDE, REPORTE, ANNULE, TRAITE, VALIDE, REPORTE, VALIDE, ANNULE, TRAITE, VALIDE};
 
     for (int j = 0; j < 10; j++) {

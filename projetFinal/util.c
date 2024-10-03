@@ -41,7 +41,7 @@ void menu() {
 
         switch (choix) {
             case 1:
-            clearScreen();
+               clearScreen();
                 Ajouter(); // Pas besoin de passer des paramètres
                 break;
             case 2:
@@ -210,7 +210,7 @@ int RechercherRef_Dichotomique(char* reference ) {
     }
     return -1;  // Référence non trouvée
 }*/
-void RechercherNom_Dichotomique(char* nomRech) {
+void RechercherNom_Dichotomique(char* nomRech) { // semi dich
     int low = 0, high = compteur - 1;
     int index = -1;
     
@@ -255,22 +255,23 @@ void RechercherNom_Dichotomique(char* nomRech) {
 }
 
 
-int RechercherDate_Dichotomique( DATE dateRech ) {
-     printf("HELLO");
+void RechercherDate_Dichotomique(DATE dateRech) {  // semi dich , qd il trouve la valeur recherche il monte en haut et descant pour chercher les occurences du valeur  
     int low = 0, high = compteur - 1;
-    Str_RES resRech ;
+    int index = -1;
+        Str_RES resRech ;
     resRech.date.annee = dateRech.annee ; 
     resRech.date.mois = dateRech.mois ; 
     resRech.date.jour = dateRech.jour ; 
-    
+    // Étape 1 : Recherche dichotomique pour trouver une occurrence de la date
     while (low <= high) {
         int mid = (low + high) / 2;
 
-        //int cmp = strcmp(arrayRes[mid].nom, nom);
-        int cmp =   comparerDate(arrayRes[mid] ,resRech ) ;
+        // Comparaison des dates avec la fonction comparerDate
+        int cmp = comparerDate(arrayRes[mid], resRech);
 
         if (cmp == 0) {
-            return mid;  
+            index = mid;  // Trouver une occurrence
+            break;
         }
 
         if (cmp < 0) {
@@ -280,12 +281,41 @@ int RechercherDate_Dichotomique( DATE dateRech ) {
         }
     }
 
-    return -1;  // Référence non trouvée
+    // Étape 2 : Si aucune occurrence n'est trouvée, afficher un message et quitter
+    if (index == -1) {
+        printf("Aucune réservation trouvée pour la date : %02d/%02d/%d\n", 
+               dateRech.jour, dateRech.mois, dateRech.annee);
+        return;
+    }
+
+    // Étape 3 : Afficher toutes les occurrences de la date (avant et après `index`)
+    // Afficher les occurrences avant `index`
+    int i = index;
+    while (i >= 0 && comparerDate(arrayRes[i], resRech) == 0) {
+       AfficherIndex(i);  // Fonction qui affiche la réservation à l'index donné
+        i--;
+    }
+
+    // Afficher les occurrences après `index`
+    i = index + 1;
+    while (i < compteur && comparerDate(arrayRes[i], resRech) == 0) {
+        AfficherIndex(i);  // Fonction qui affiche la réservation à l'index donné
+        i++;
+    }
+   
+}
+
+void RechercherStatut_Linaire(int statut) {  // semi dich , qd il trouve la valeur recherche il monte en haut et descant pour chercher les occurences du valeur  
+
+    for (int i = 0; i < compteur; i++) { 
+        if (arrayRes[i].statut==statut) {
+          AfficherIndex(i);
+        }
+    }
 }
 
 /************************************   Afficher une Reseration *********************** */
 void AfficherIndex(int i) { 
-
     if (i>0){
     const char* statutStr = statutToString(arrayRes[i].statut);
        const char* statutColor = getStatutColor(arrayRes[i].statut);
@@ -375,12 +405,12 @@ void menuRechercher(){
     switch(choix) {
         case 1 : RechercherParReference();  break; 
         case 2 :  RechercherParNom();  break; 
-        case 3 : RechercherParDate();  break;
+        case 3 : { RechercherParDate(); break;}
         case 4 : RechercherParStatut();  break;
        default : printf("choix invalide");  break;
     }
-    getchar();
-    AfficherList() ;
+  
+  
 }
 
 void enteteTableau(){

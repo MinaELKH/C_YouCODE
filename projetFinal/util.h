@@ -56,7 +56,8 @@ void TriRes_Bulle();   int comparerREF();   int comparerNom();  int comparerDate
 
 int RechercherRef_Dichotomique();
 void RechercherNom_Dichotomique();  // on peut avoir plusieur reservation avec meme nom donc on fait la affiche a l interieur du fonction pour evite un tableau des index dans le retour 
-int RechercherDate_Dichotomique();
+void RechercherDate_Dichotomique();
+void RechercherStatut_Linaire(int statut) ; 
 
 /*   menu et sous menu */
 void menu();     void menuTrier();   void menuRechercher();  void enteteTableau() ; 
