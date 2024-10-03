@@ -3,7 +3,7 @@
 
 // Initialisation des variables globales
 Str_RES arrayRes[MAX_RES]; 
-int compteur = 0;          
+int compteur = 1;          
 int compteurRef=1;
 
 

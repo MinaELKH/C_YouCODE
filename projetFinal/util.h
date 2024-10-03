@@ -41,12 +41,11 @@ extern int compteurRef;               // Compteur pour les reference , l idee et
 ///////////////////////////////////////// Prototypes de fonctions
 const char* statutToString(Statut statut);
 void genererRef(char *ref);
-void menu(void); 
+void menu(); 
 void clearScreen(); 
-void TriResRef_ParBulle();
-
-
-
-
+void TriResRef_Bulle();
+int RechercherRef_Dichotomique();
+void formulaire();
+void AfficherRef(int i);
 
 #endif // UTIL_H

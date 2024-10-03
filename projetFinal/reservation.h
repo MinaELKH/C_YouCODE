@@ -12,10 +12,10 @@ void Modifier();
 void Supprimer();
 void AfficherDetails();
 void TrierParNom();
-void RechercherParReference(char* reference);
 void AfficherStatistiques();
 void AfficherList();
 void AjouterReservationPardefaut();
+int RechercherParReference();
 
 #endif // RESERVATION_H
 

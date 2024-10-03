@@ -46,13 +46,14 @@ void Ajouter() {
     
     // Ajouter la reservation au tableau
     arrayRes[compteur] = res;
-    int i = compteur++;
+    printf("res  compteur : %d.\n" , compteur);
+    compteur++;
     printf("Reservation ajoutee avec succes.\n");
  
 }
 void AfficherList() {
  printf("------          Afficher la liste des Patients qui ont réservé       --------\n");
-    printf("Compteur : %d\n", compteur);
+    printf("Nombre des Reservatio : %d\n", compteur);
     printf("+----------+----------+----------+-------------+-------+----------+---------------+\n");
     printf("|   REF    |   Nom    |  Prenom  |  Telephone  |  Age  |  Statut  |     Date      |\n");
     printf("+----------+----------+----------+-------------+-------+----------+---------------+\n");
@@ -72,32 +73,70 @@ void AfficherList() {
     printf("+----------+----------+----------+-------------+-------+----------+---------------+\n");
 
 }
+/***************************************************** */
+int RechercherParReference() {
+    TriResRef_Bulle(); 
+    printf("------           Rechecher une reservation           --------\n");
+    int  index=0;
+            char ref[50];
+            printf("REF: ");
+            fgets(ref, 50, stdin);
+            ref[strcspn(ref, "\n")] = 0;
+    index  = RechercherRef_Dichotomique(ref);
+    printf(" l index est %d \n", index);
+    AfficherRef(index);
+    return index ; 
+}
+/************************************************** */
 void Modifier(void) { 
-    printf("--.\n");
+   printf("------           Modifier une reservation           --------\n");
+    int index = RechercherParReference() ; 
+    formulaire(index);  
 }
-
+/******************************************************* */
 void Supprimer(void) { 
-    printf("--.\n");
+    printf("------           Supprimer une reservation           --------\n");
+    int index = RechercherParReference() ; 
+    for (int i = index; i < compteur-1; i++)
+    {
+        arrayRes[i] = arrayRes[i + 1];
+    }
+    compteur--;
+    printf("\n  Le contact a ete supprime avec succes !\n");
+    
 }
 
-void AfficherDetails(void) { 
-    printf("--.\n");
+void AfficherDetails() { 
+       printf("------          Afficher  une reservation           --------\n");
+    int i ,  index=0;
+    char ref[50];
+            printf("REF: ");
+            fgets(ref, 50, stdin);
+            ref[strcspn(ref, "\n")] = 0;
+    index = RechercherParReference(ref);
 }
 
 void TrierParNom(void) { 
     printf("--.\n");
 }
 
-int RechercherParReference(char* reference) {
-    void TriResRef_ParBulle(); 
-    printf("------           Rechecher une reservation           --------\n");
-
-    printf("--.\n");
-}
-
 void AfficherStatistiques(void) { 
     printf("--.\n");
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Fonction pour ajouter des reservations par defaut
 void AjouterReservationPardefaut() {
@@ -120,9 +159,10 @@ void AjouterReservationPardefaut() {
         arrayRes[compteur].date.jour = jour[j];
         arrayRes[compteur].date.mois = mois[j];
         arrayRes[compteur].date.annee = annee[j];
-
-
         genererRef(arrayRes[compteur].reference); // appel un fonction Generer la reference pour chaque reservation
+        
+            printf("res  compteur : %d.\n" , compteur);
         compteur++;
+
     }
 }
