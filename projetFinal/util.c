@@ -1,5 +1,6 @@
 #include "reservation.h"
 #include "util.h"
+#include "statistique.h"
 
 
 const char* statutToString(Statut statut) {
@@ -70,8 +71,14 @@ void menu() {
             
             case 7:
             clearScreen();
-                 printf("/********* Statistiques:  ***********/ \n 1: Calculer la moyenne d'age \t  2: Tranche d'age .\t  3:Reservations par statut \n");
-                menuStatistique();
+            printf("\n\n");
+            printf(GREEN" *********               Statistiques:              ***********   "RESET);
+            printf("\n \n \n");
+               //  printf("/********* Statistiques:  ***********/ \n 1: Calculer la moyenne d'age \t  2: Tranche d'age .\t  3:Reservations par statut \n");
+               // menuStatistique();
+                CalculerMoyAge();
+                TrancheAge();
+                NbReservationStatut();
                 break;
             case 8 : 
                  AfficherList();
