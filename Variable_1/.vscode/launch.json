@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/User/Desktop/youcode/git/C_YouCODE/Boucle_2",
-      "program": "c:/Users/User/Desktop/youcode/git/C_YouCODE/Boucle_2/build/Debug/outDebug",
+      "cwd": "c:/Users/User/Desktop/youcode/git/C_YouCODE",
+      "program": "c:/Users/User/Desktop/youcode/git/C_YouCODE/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

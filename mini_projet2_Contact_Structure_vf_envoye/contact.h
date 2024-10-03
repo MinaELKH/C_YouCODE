@@ -1,28 +1,26 @@
 #ifndef CONTACT_H
 #define CONTACT_H
-#ifdef _WIN32
-    #define CLEAR "cls"
-#else
-    #define CLEAR "clear"
-#endif
 
-#define MAX_CHAR 50
-#define MAX_contacts 100
 
+///////////////////////////////////////// Biblio  /////////////////////////////
 #include<stdio.h>
 #include<string.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <ctype.h>
 
-#ifdef _WIN32
-#define CLEAR "cls"
-#else
-#define CLEAR "clear"
-#endif
 
+
+///////////////////////////////////////// declaration des fonctions  /////////////////////////////
 void AjouterContactsExemple();
 void toLowerCase(char *str);
+
+
+
+///////////////////////////////////////// declaration structure et variable global/////////////////////////////
+#define MAX_CHAR 50
+#define MAX_contacts 100
+
 typedef struct contact {
     char nom[MAX_CHAR];
     char tel[MAX_CHAR];
@@ -34,6 +32,20 @@ extern CONTACT contact[MAX_contacts];
 extern int compteur;
 
 
+
+
+
+
+
+
+///////////////////////////////////  style  -    couleur ///////////////////////////////////////////
+
+#ifdef _WIN32
+    #define CLEAR "cls"
+#else
+    #define CLEAR "clear"
+#endif
+ 
 // Définition des macros pour les couleurs
 #define RESET       "\033[0m"        // Réinitialise les couleurs
 #define RED         "\033[31m"       // Rouge

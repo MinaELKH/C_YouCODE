@@ -9,9 +9,8 @@ int Rechercher();
 void Supprimer();
 void Modifier();
 void ListContact();
-// maj
-void toLowerCase(char *str); 
-
+void triSelectionParNom();
+void triBulleParNom(); 
 int main() {
     printf("Nombre total de contact %d", compteur); 
     menu();
@@ -29,6 +28,8 @@ void menu(){
     printf("4. Listes des contacts.\n");
     printf("5. Chercher un contact par nom.\n");
     printf(MAGENTA "6. Ajouter dix contacts par defaut pour tester le programme.\n" RESET);
+    printf(GREEN"7.Trier par nom de contact ( TRi Par Selection) .\n" RESET);
+    printf(CYAN"8.Trier par nom de contact ( TRi Par Bulle) .\n" RESET);
       printf("\n");
     printf("\t\t" RED "0. Quitter le programme.\n" RESET);
     printf("----------------\n");
@@ -55,6 +56,10 @@ void menu(){
         case 6:
             AjouterContactsExemple();
             break;
+        case 7 :
+            triSelectionParNom();
+        case 8 : 
+            triBulleParNom();
         case 0 :
             exit;
             break;
@@ -71,6 +76,9 @@ void menu(){
 void Ajouter(){
     system(CLEAR); 
      printf("********  Ajouter  ********\n ");
+     if (compteur==MAX_contacts){
+         printf("Le carnet de contacts est sature\n");
+     }else{
      printf("Veuiller remplir cette formulaire \n");
 
      int i = compteur++;
@@ -88,9 +96,8 @@ void Ajouter(){
     printf(BLUE "email : "RESET);
     fgets(contact[i].email, sizeof(contact[i].email), stdin);
     contact[i].email[strcspn(contact[i].email, "\n")] = 0;
-   
 
-     printf(GREEN"\n   Le Contact  ajoute avec succes --- nombre de contacts est %d : !\n" RESET , compteur );
+    printf(GREEN "\n   Le Contact  ajoute avec succes --- nombre de contacts est %d : !\n" RESET, compteur);}
 }
 void ListContact() {
     system(CLEAR);

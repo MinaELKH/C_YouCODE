@@ -1,0 +1,49 @@
+/////////////////////////////////// tri /////////////////////////////////////////////
+
+////////          tri par selection ////////////////////
+void triSelectionParNom() {
+    system(CLEAR);
+    int i, j, minIndex;
+    CONTACT temp;
+
+    for (i = 0; i < compteur - 1; i++) {
+        minIndex = i;
+        for (j = i + 1; j < compteur; j++) {
+            if (strcmp(contact[j].nom, contact[minIndex].nom) < 0) {
+                minIndex = j;
+               
+            }
+        }
+        
+        if (minIndex != i) {
+            temp = contact[i];
+            contact[i] = contact[minIndex];
+            contact[minIndex] = temp;
+        }
+    }
+}
+/*********** tri par bulle */
+// l objevvtif  de l utlisation de sorted pour optimisier la complexite le nombre d iteration 
+void triBulleParNom() {
+    int i, j;
+    CONTACT temp;
+    int sorted;
+
+    for (i = 0; i < compteur - 1; i++) {
+        sorted = 1; // le tableau est déjà trié
+        for (j = 0; j < compteur - 1 - i; j++) {
+            if (strcmp(contact[j].nom, contact[j + 1].nom) > 0) {
+                temp = contact[j];
+                contact[j] = contact[j + 1];
+                contact[j + 1] = temp;
+                sorted = 0; // le tableau n'est pas encore trié 
+            }
+        }
+        // Si aucune permutation n'a eu lieu, le tableau est trié 
+        if (sorted) {
+            break;
+        }
+    }
+}
+
+////////////////////////////    Recherche ////////////////////////////////////
