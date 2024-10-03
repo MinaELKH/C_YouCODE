@@ -1,6 +1,7 @@
 #ifndef UTIL_H
 #define UTIL_H
 #include "util.h"
+#include "style.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -40,12 +41,22 @@ extern int compteurRef;               // Compteur pour les reference , l idee et
 
 ///////////////////////////////////////// Prototypes de fonctions
 const char* statutToString(Statut statut);
+
 void genererRef(char *ref);
-void menu(); 
+
 void clearScreen(); 
-void TriResRef_Bulle();
-int RechercherRef_Dichotomique();
+
 void formulaire();
 void AfficherRef(int i);
+
+/*  tri     */
+void TriRes_Bulle();   int comparerREF();   int comparerNom();  int comparerDate(); int comparerStatut();  void TriResRef_Bulle();//  TriResRef_Bulle   je l utlise pour tester
+
+/*  recherche */
+
+int RechercherRef_Dichotomique();
+
+/*   menu et sous menu */
+void menu();     void menuTrier(); 
 
 #endif // UTIL_H

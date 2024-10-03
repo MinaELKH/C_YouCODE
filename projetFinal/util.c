@@ -1,6 +1,7 @@
 #include "reservation.h"
 #include "util.h"
 
+
 const char* statutToString(Statut statut) {
     switch (statut) {
         case VALIDE: return "valide";
@@ -22,16 +23,16 @@ void menu() {
     char reference[MAX_CHAR];
 
     while (continuer) {
-        printf("\n----- Menu de Gestion des Reservations -----\n");
-        printf("1. Ajouter une reservation\n");
-        printf("2. Modifier une reservation\n");
-        printf("3. Supprimer une reservation\n");
-        printf("4. Afficher les details d'une reservation\n");
-        printf("5. Trier les Reservations par nom\n");
-        printf("6. Rechercher par reference\n");
+        printf(GREEN"\n----- Menu de Gestion des Reservations -----\n"RESET);
+        printf("1. Ajouter\n");
+        printf("2. Modifier\n");
+        printf("3. Supprimer\n");
+        printf("4. Afficher  \n");
+        printf("5. Trier \n");
+        printf("6. Rechercher\n");
         printf("7. Statistiques\n");
         printf("8. Liste des reservations\n");
-        printf("9. tri ref\n");
+        
         printf("0. Quitter le programme\n");
         printf("Veuillez choisir une option : ");
         
@@ -55,10 +56,12 @@ void menu() {
              clearScreen();
                 AfficherDetails(); 
                 break;
-            case 5:
-             clearScreen();
-                TrierParNom(); 
-                break;
+            case 5: {// trier
+                 clearScreen();
+                 printf("/********* Trier par :  ***********/ \n 1: Reference\t  2: Nom\t  3: Date\t  4:Statue \n");
+                 menuTrier(); 
+                break;}
+              
             case 6: {
                 RechercherParReference(); 
                 break;
@@ -101,8 +104,7 @@ void TriResRef_Bulle(){
     for (i = 0; i < compteur - 1; i++) {
         sorted = 1; // le tableau est déjà trié
         for (j = 0; j < compteur - 1 - i; j++) {
-           // if (strcmp(arrayRes[j].reference, arrayRes[j + 1].reference) > 0) {
-           if (strcmp(arrayRes[j].reference, arrayRes[j + 1].reference) > 0)
+           if (strcmp(arrayRes[j].reference, arrayRes[j + 1].reference) > 0){
                 temp = arrayRes[j];
                 arrayRes[j] = arrayRes[j + 1];
                 arrayRes[j + 1] = temp;
@@ -117,10 +119,52 @@ void TriResRef_Bulle(){
 
 }
 
-void comparer(Str_RES res1 , Str_RES res2){
+
+void TriRes_Bulle(int (*comparer)(Str_RES  ,Str_RES)){
+    int i, j;
+    Str_RES temp;
+    int sorted;
+
+    for (i = 0; i < compteur - 1; i++) {
+        sorted = 1; // le tableau est déjà trié
+        for (j = 0; j < compteur - 1 - i; j++) {
+           if (comparer(arrayRes[j], arrayRes[j + 1]) > 0){
+                temp = arrayRes[j];
+                arrayRes[j] = arrayRes[j + 1];
+                arrayRes[j + 1] = temp;
+                sorted = 0; // le tableau n'est pas encore trié 
+            }
+        }
+        // Si aucune permutation n'a eu lieu, le tableau est trié
+        if (sorted) {
+            break;
+        }
+    }
 
 }
 
+
+int comparerREF(Str_RES a , Str_RES b){
+     return    strcmp(a.reference, b.reference) ; 
+}
+int comparerNom(Str_RES a , Str_RES b){
+     return    strcmp(a.nom, b.nom) ; 
+}
+int comparerDate(Str_RES a , Str_RES b){
+        if(a.date.annee > b.date.annee )
+             { return 1 ; }
+        else if (a.date.annee == b.date.annee &&  a.date.mois > b.date.mois )
+             { return 1 ; }
+        else if (a.date.annee == b.date.annee &&  a.date.mois == b.date.mois && a.date.jour > b.date.jour )
+             {  return 1 ;}
+        else {return 0 ; }
+}
+
+int comparerStatut(Str_RES a , Str_RES b){
+        if(a.statut > b.statut ){
+            return 1 ; 
+        } else {return 0 ; }
+}
 /************************************   recherche *********************** */
 int RechercherRef_Dichotomique(char* reference) {
     int low = 0, high = compteur - 1;
@@ -143,6 +187,8 @@ int RechercherRef_Dichotomique(char* reference) {
     return -1;  // Référence non trouvée
 }
 
+
+/************************************   Afficher une Reseration *********************** */
 void AfficherRef(int i) { 
     if (i>0){
         printf("+----------+----------+----------+-------------+-------+----------+---------------+\n");
@@ -205,4 +251,21 @@ void formulaire( int index){
 
     arrayRes[index] = res;
     printf("Modifffffffff: ");
+}
+
+
+/********************  sous   menu                */
+
+void menuTrier(){
+    int choix;
+     printf("Choix : ");
+     scanf("%d", &choix);
+    switch(choix) {
+        case 1 : TrierParRef();  break; 
+        case 2 : TrierParNom();  break; 
+        case 3 : TrierParDate();  break;
+        case 4 : TrierParStatut();  break;
+       default : printf("choix invalide");  break;
+    }
+    AfficherList() ;
 }

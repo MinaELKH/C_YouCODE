@@ -1,5 +1,5 @@
 #include "reservation.h"
-
+#include "style.h"
 
 
 
@@ -58,14 +58,19 @@ void AfficherList() {
     printf("|   REF    |   Nom    |  Prenom  |  Telephone  |  Age  |  Statut  |     Date      |\n");
     printf("+----------+----------+----------+-------------+-------+----------+---------------+\n");
     
-    for (int i = 0; i < compteur; i++) { 
-        printf("| %-8s | %-8s | %-8s | %-11s | %-5d | %-8s | %02d/%02d/%-8d |\n",
+    for (int i = 1; i < compteur; i++) { 
+       //char statut[] =  statutToString(arrayRes[i].statut) ;
+       const char* statutStr = statutToString(arrayRes[i].statut);
+       const char* statutColor = getStatutColor(arrayRes[i].statut);
+
+        printf("| %-8s | %-8s | %-8s | %-11s | %-5d |%s%-8s%s| %02d/%02d/%-8d |\n",
                arrayRes[i].reference,               
                arrayRes[i].nom,              
                arrayRes[i].prenom,             
                arrayRes[i].telephone,         
                arrayRes[i].age,               
-               statutToString(arrayRes[i].statut), 
+               //statutToString(arrayRes[i].statut), 
+               statutColor, statutStr, RESET,
                arrayRes[i].date.jour, 
                arrayRes[i].date.mois, 
                arrayRes[i].date.annee);           
@@ -73,7 +78,7 @@ void AfficherList() {
     printf("+----------+----------+----------+-------------+-------+----------+---------------+\n");
 
 }
-/***************************************************** */
+
 int RechercherParReference() {
     TriResRef_Bulle(); 
     printf("------           Rechecher une reservation           --------\n");
@@ -116,15 +121,36 @@ void AfficherDetails() {
     index = RechercherParReference(ref);
 }
 
-void TrierParNom(void) { 
-    printf("--.\n");
-}
+
 
 void AfficherStatistiques(void) { 
     printf("--.\n");
 }
 
 
+
+/********************  trier par   */
+// reference 
+void TrierParRef(){
+    TriRes_Bulle(comparerREF) ; 
+}
+// Nom
+void TrierParNom() { 
+    TriRes_Bulle(comparerNom) ;
+}
+// Date
+void TrierParDate(){
+    TriRes_Bulle(comparerDate) ; 
+}
+
+
+// Statut
+void TrierParStatut(){
+    TriRes_Bulle(comparerStatut) ; 
+}
+
+
+/***************************************************** */
 
 
 
@@ -161,7 +187,7 @@ void AjouterReservationPardefaut() {
         arrayRes[compteur].date.annee = annee[j];
         genererRef(arrayRes[compteur].reference); // appel un fonction Generer la reference pour chaque reservation
         
-            printf("res  compteur : %d.\n" , compteur);
+          
         compteur++;
 
     }

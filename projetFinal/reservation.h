@@ -11,11 +11,17 @@ void Ajouter();
 void Modifier();
 void Supprimer();
 void AfficherDetails();
-void TrierParNom();
+
 void AfficherStatistiques();
 void AfficherList();
 void AjouterReservationPardefaut();
 int RechercherParReference();
+
+
+void TrierParRef();
+void TrierParNom() ;
+void TrierParDate();
+void TrierParStatut();
 
 #endif // RESERVATION_H
 
