@@ -69,7 +69,9 @@ void menu() {
                 break;}
             
             case 7:
-                AfficherStatistiques(); 
+            clearScreen();
+                 printf("/********* Statistiques:  ***********/ \n 1: Calculer la moyenne d'age \t  2: Tranche d'age .\t  3:Reservations par statut \n");
+                menuStatistique();
                 break;
             case 8 : 
                  AfficherList();
@@ -167,6 +169,26 @@ int comparerStatut(Str_RES a , Str_RES b){
         else if(a.statut == b.statut){return 0 ; }
         else {return -1 ; }
 }
+
+void triAge_selection() {
+    int ind_min;
+    Str_RES temp; 
+
+    for (int i = 0; i < compteur - 1; i++) {
+        ind_min = i;  
+        for (int j = i + 1; j < compteur; j++) {
+            if (arrayRes[j].age < arrayRes[ind_min].age) {
+                ind_min = j;  
+            }
+        }
+        if (ind_min != i) {
+            temp = arrayRes[i];
+            arrayRes[i] = arrayRes[ind_min];
+            arrayRes[ind_min] = temp;
+        }
+    }
+}
+
 /************************************   recherche *********************** */
 
 // cette fonction est fonctionnelle mais j utlise la 2ieme plus general pour eviter la reptition 
@@ -306,8 +328,8 @@ void RechercherDate_Dichotomique(DATE dateRech) {  // semi dich , qd il trouve l
 }
 
 void RechercherStatut_Linaire(int statut) {  // semi dich , qd il trouve la valeur recherche il monte en haut et descant pour chercher les occurences du valeur  
-
-    for (int i = 0; i < compteur; i++) { 
+    enteteTableau();
+    for (int i = 1; i < compteur; i++) { 
         if (arrayRes[i].statut==statut) {
           AfficherIndex(i);
         }
@@ -412,10 +434,28 @@ void menuRechercher(){
   
   
 }
+void CalculerMoyAge();
+void TrancheAge();
+void NbReservationStatut();
+void menuStatistique(){
+    int choix;
+     printf("Choix : ");
+     scanf("%d", &choix);
+                     // Vider le tampon d'entrée avant d'utiliser fgets pour éviter les problèmes
+              fflush(stdin);  
+    switch(choix) {
+        case 1 : CalculerMoyAge();  break; 
+        case 2 :  TrancheAge();  break; 
+        case 3 :  NbReservationStatut(); break;
+       default : printf("choix invalide");  break;
+    }
+  
+  
+}
 
 void enteteTableau(){
         printf("|------          Afficher la liste des Patients qui ont reserve       ------------|\n");
     printf("+----------+----------+----------+-------------+-------+----------+---------------+\n");
-    printf(BLUE"|   REF    |   Nom    |  Prenom  |  Telephone  |  Age  |  Statut  |     Date      |\n"RESET);
+    printf(BG_GRAY"|   REF    |   Nom    |  Prenom  |  Telephone  |  Age  |  Statut  |     Date      |\n"RESET);
     printf("+----------+----------+----------+-------------+-------+----------+---------------+\n");
 }

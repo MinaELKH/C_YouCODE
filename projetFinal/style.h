@@ -28,6 +28,8 @@ const char* getStatutColor(int statut);
 #define BG_BLUE     "\033[44m"       // Fond bleu
 #define BG_MAGENTA  "\033[45m"       // Fond magenta
 #define BG_CYAN     "\033[46m"       // Fond cyan
+#define BG_WHITE    "\033[47m"       // Fond blanc
+#define BG_GRAY     "\033[100m"      // Fond gris clair
 
 #endif 
 

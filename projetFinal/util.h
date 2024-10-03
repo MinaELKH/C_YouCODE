@@ -51,7 +51,7 @@ void AfficherIndex(int i);
 
 /*  tri     */
 void TriRes_Bulle();   int comparerREF();   int comparerNom();  int comparerDate(); int comparerStatut();  void TriResRef_Bulle();//  TriResRef_Bulle   je l utlise pour tester
-
+void triAge_selection() ;
 /*  recherche */
 
 int RechercherRef_Dichotomique();
@@ -60,6 +60,9 @@ void RechercherDate_Dichotomique();
 void RechercherStatut_Linaire(int statut) ; 
 
 /*   menu et sous menu */
-void menu();     void menuTrier();   void menuRechercher();  void enteteTableau() ; 
+void menu();     void menuTrier();   void menuRechercher();   void menuStatistique();
+
+/*   entete de tableau d affichage */
+void enteteTableau() ; 
 
 #endif // UTIL_H
