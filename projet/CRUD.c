@@ -7,6 +7,34 @@ void genererRef(char *ref) {
     snprintf(ref, 50, "REF%d", compteurRef++);
 }
 
+// Fonction pour ajouter des reservations par defaut
+void AjouterReservationPardefaut() {
+    char noms[10][50] = {"Amine", "Hamed", "Nadir", "Saadi", "Zahid", "Nadir", "Salem", "Rafik", "Nadir", "Azhar"};
+    char prenoms[10][50] = {"Hassna", "Fatima", "Omar", "Khadija", "Hassan", "Leila", "Youssef", "Amina", "Rachid", "Sara"};
+    char tels[10][15] = {"0612345678", "0698765432", "0712345678", "0798765432", "0812345678", "0898765432", "0912345678", "0998765432", "0512345678", "0598765432"};
+    int ages[10] = {25, 60, 28, 28, 35, 16, 40, 75, 18, 27};
+
+    int jour[10] = {2,    10,    22,   4,    5,    22,   30,   22,   28,   27}; //on peut pas mettre 08 ou 07 car il concedere comme a base de octe et nous somme sur base de decimal 
+    int mois[10] = {2,    4,     5,    6,    10,   5,   11,    5,    8,   12};  
+    int annee[10] ={2024, 2023, 2022, 2028, 2025, 2022, 2024, 2022, 2018, 2027};
+    Statut statuts[10] = {VALIDE, REPORTE, ANNULE, TRAITE, VALIDE, REPORTE, VALIDE, ANNULE, TRAITE, VALIDE};
+
+    for (int j = 0; j < 10; j++) {
+        strcpy(arrayRes[compteur].nom, noms[j]);
+        strcpy(arrayRes[compteur].prenom, prenoms[j]);
+        strcpy(arrayRes[compteur].telephone, tels[j]);  
+        arrayRes[compteur].age = ages[j];
+        arrayRes[compteur].statut = statuts[j];
+        // date
+        arrayRes[compteur].date.jour = jour[j];
+        arrayRes[compteur].date.mois = mois[j];
+        arrayRes[compteur].date.annee = annee[j];
+        genererRef(arrayRes[compteur].reference); // appel un fonction Generer la reference pour chaque reservation
+
+        compteur++;
+
+    }
+}
 void Ajouter() {
     if (compteur >= MAX_RES) {
         printf("Erreur : nombre maximum de reservations atteint.\n");
@@ -17,10 +45,12 @@ void Ajouter() {
     printf("Entrez le nom : ");
     fgets(res.nom, MAX_CHAR, stdin);
     res.nom[strcspn(res.nom, "\n")] = 0; 
+    capitalizeFirstLetter(res.nom);
 
     printf("Entrez le prenom : ");
     fgets(res.prenom, MAX_CHAR, stdin);
     res.prenom[strcspn(res.prenom, "\n")] = 0;
+    capitalizeFirstLetter(res.prenom); 
 
     printf("Entrez le telephone : ");
     fgets(res.telephone, MAX_CHAR, stdin);
