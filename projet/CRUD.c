@@ -1,6 +1,7 @@
 #include "header.h"
 #include "utils/style.h"
 
+
 void genererRef(char *ref) {
    
     snprintf(ref, 50, "REF%d", compteurRef++);
@@ -27,8 +28,7 @@ void Ajouter() {
 
     printf("Entrez l'age : ");
     scanf("%d", &res.age);
-    getchar(); // Pour nettoyer le buffer d'entree
-
+ 
     printf("Entrez le statut (0: VALIDE, 1: REPORTE, 2: ANNULE, 3: TRAITE) : ");
     int statut_input;
     scanf("%d", &statut_input);
@@ -41,18 +41,24 @@ void Ajouter() {
 
     res.statut = (Statut)statut_input;
 
-    printf("Entrez la date de reservation (jj mm aaaa) : ");
-    scanf("%d %d %d", &res.date.jour, &res.date.mois, &res.date.annee);
+    printf("Entrez la date de reservation (jj-mm-aaaa) : ");
+    scanf("%d-%d-%d", &res.date.jour, &res.date.mois, &res.date.annee);
 
     // Generer une reference
     genererRef(res.reference);
     
+
+     int valide =  is_alpha_string( res);
+     if(valide==1){
     // Ajouter la reservation au tableau
-    arrayRes[compteur] = res;
-    printf(GREEN"le Nombre total de reservation est  : %d.\n"RESET , compteur);
-    compteur++;
-    printf(GREEN"Reservation ajoutee avec succes.\n"RESET);
- 
+            arrayRes[compteur] = res;
+            printf(GREEN"le Nombre total de reservation est  : %d.\n"RESET , compteur);
+            compteur++;
+            printf(GREEN"Reservation ajoutee avec succes.\n"RESET);
+     }
+     else {
+                printf(RED"Erreur lors de l ajout.\n"RESET);
+     }
 }
 
 void AfficherList() {

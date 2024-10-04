@@ -8,6 +8,15 @@
 void clearScreen(); 
 const char* getStatutColor(int statut);
 void enteteTableau();
+
+
+
+
+/********  validation des champs  */
+
+void capitalizeFirstLetter(char *str);
+ int is_alpha_string();
+
 ///////////////////////////////////  style  -    couleur ///////////////////////////////////////////
 
 #ifdef _WIN32
