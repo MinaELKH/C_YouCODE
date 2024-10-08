@@ -183,3 +183,30 @@ void formulaire( int index){
  
 }
 
+
+
+/**/
+
+void AfficherTest() {
+
+    enteteTableau() ;// juste affichage de l entete de tableau 
+    for (int i = compteur-1; i >= compteur -2 ; i--) { 
+       //char statut[] =  statutToString(arrayRes[i].statut) ;
+       const char* statutStr = statutToString(arrayRes[i].statut);
+       const char* statutColor = getStatutColor(arrayRes[i].statut);
+
+        printf("| %-8s | %-8s | %-8s | %-11s | %-5d |%s%-10s%s| %02d/%02d/%-7d |\n",
+               arrayRes[i].reference,               
+               arrayRes[i].nom,              
+               arrayRes[i].prenom,             
+               arrayRes[i].telephone,         
+               arrayRes[i].age,               
+               //statutToString(arrayRes[i].statut), 
+               statutColor, statutStr, RESET,
+               arrayRes[i].date.jour, 
+               arrayRes[i].date.mois, 
+               arrayRes[i].date.annee);           
+    }
+    printf("+----------+----------+----------+-------------+-------+----------+---------------+\n");
+
+}

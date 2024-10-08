@@ -7,7 +7,10 @@ int compteur = 1;
 int compteurRef = 1;
 
 int main() {
+
+
    AjouterReservationPardefaut();  // Ajouter des réservations par défaut 
+ // AfficherTest(); 
    menu();
    return 0;
 }

@@ -1,10 +1,7 @@
-#ifndef HEADER_H
-#define HEADER_H
-
-
-
-
-#include "utils/style.h"
+#ifndef UTIL_H
+#define UTIL_H
+#include "util.h"
+#include "style.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -44,41 +41,10 @@ extern int compteurRef;               // Compteur pour les reference , l idee et
 
 ///////////////////////////////////////// Prototypes de fonctions
 const char* statutToString(Statut statut);
-// Prototypes de fonctions principales
-void Ajouter();
-void Modifier();
-void Supprimer();
-void AfficherDetails();
-
-void AfficherStatistiques();
-void AfficherList();
-void AjouterReservationPardefaut();
-
-void AfficherTest(); 
-
-
-int RechercherParReference();
-void RechercherParNom();
-void RechercherParDate();
-void RechercherParStatut();
-
-
-void TrierParRef();
-void TrierParNom() ;
-void TrierParDate();
-void TrierParStatut();
-
-
-void CalculerMoyAge();
-void TrancheAge();
-void NbReservationStatut();
-
-
-
 
 void genererRef(char *ref);
 
-                                              
+void clearScreen(); 
 
 void formulaire();
 void AfficherIndex(int i);
@@ -96,5 +62,7 @@ void RechercherStatut_Linaire(int statut) ;
 /*   menu et sous menu */
 void menu();     void menuTrier();   void menuRechercher();   void menuStatistique();
 
+/*   entete de tableau d affichage */
+void enteteTableau() ; 
 
-#endif // 
+#endif // UTIL_H

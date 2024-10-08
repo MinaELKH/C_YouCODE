@@ -18,6 +18,84 @@ void genererRef(char *ref) {
     snprintf(ref, 50, "REF%d", compteurRef++);
 }
 
+void menu() {
+    int choix;
+    bool continuer = true;
+    char reference[MAX_CHAR];
+
+    while (continuer) {
+        printf(GREEN"\n----- Menu de Gestion des Reservations -----\n"RESET);
+        printf("1. Ajouter\n");
+        printf("2. Modifier\n");
+        printf("3. Supprimer\n");
+        printf("4. Afficher  \n");
+        printf("5. Trier \n");
+        printf("6. Rechercher\n");
+        printf("7. Statistiques\n");
+        printf("8. Liste des reservations\n");
+        
+        printf("0. Quitter le programme\n");
+        printf("Veuillez choisir une option : ");
+        
+        scanf("%d", &choix);
+        getchar();
+
+        switch (choix) {
+            case 1:
+               clearScreen();
+                Ajouter(); // Pas besoin de passer des paramètres
+                break;
+            case 2:
+                clearScreen();
+                Modifier(); // Pas besoin de passer des paramètres
+                break;
+            case 3:
+             clearScreen();
+                Supprimer(); // Pas besoin de passer des paramètres
+                break;
+            case 4:
+             clearScreen();
+                AfficherDetails(); 
+                break;
+            case 5: {// trier
+                 clearScreen();
+                 printf("/********* Trier par :  ***********/ \n 1: Reference\t  2: Nom\t  3: Date\t  4:Statue \n");
+                 menuTrier(); 
+                break;}
+              
+            case 6:{// Rechercher
+                 clearScreen();
+                 printf("/********* Rechercher par :  ***********/ \n 1: Reference\t  2: Nom\t  3: Date\t  4:Statue \n");
+                 menuRechercher(); 
+                break;}
+            
+            case 7:
+            clearScreen();
+            printf("\n\n");
+            printf(GREEN" *********               Statistiques:              ***********   "RESET);
+            printf("\n \n \n");
+               //  printf("/********* Statistiques:  ***********/ \n 1: Calculer la moyenne d'age \t  2: Tranche d'age .\t  3:Reservations par statut \n");
+               // menuStatistique();
+                CalculerMoyAge();
+                TrancheAge();
+                NbReservationStatut();
+                break;
+            case 8 : 
+                 AfficherList();
+                 break; 
+            case 9 : 
+                 TriResRef_Bulle();
+                 break; 
+            case 0:
+                continuer = false;
+                printf("Merci d'avoir utilise le programme. À bientôt !\n");
+                break;
+            default:
+                printf("Choix invalide. Veuillez reessayer.\n");
+                break;
+        }
+    }
+}
 
 
 void clearScreen() {
@@ -363,7 +441,9 @@ void menuRechercher(){
   
   
 }
-
+void CalculerMoyAge();
+void TrancheAge();
+void NbReservationStatut();
 void menuStatistique(){
     int choix;
      printf("Choix : ");
@@ -381,7 +461,7 @@ void menuStatistique(){
 }
 
 void enteteTableau(){
-    printf("|------          Afficher la liste des Patients qui ont reserve       ------------|\n");
+        printf("|------          Afficher la liste des Patients qui ont reserve       ------------|\n");
     printf("+----------+----------+----------+-------------+-------+----------+---------------+\n");
     printf(BG_GRAY"|   REF    |   Nom    |  Prenom  |  Telephone  |  Age  |  Statut  |     Date      |\n"RESET);
     printf("+----------+----------+----------+-------------+-------+----------+---------------+\n");

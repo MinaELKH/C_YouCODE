@@ -1,0 +1,31 @@
+{
+	"folders": [
+		{
+			"name": "projetFinal",
+			"path": "../projetFinal"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"*.embeddedhtml": "html",
+			"unistd.h": "c",
+			"cmath": "c",
+			"cstdarg": "c",
+			"cstdint": "c",
+			"cstdio": "c",
+			"cstdlib": "c",
+			"cwchar": "c",
+			"cwctype": "c",
+			"exception": "c",
+			"type_traits": "c",
+			"limits": "c",
+			"*.tcc": "c",
+			"typeinfo": "c",
+			"time.h": "c",
+			"contact.h": "c"
+		}
+	}
+}

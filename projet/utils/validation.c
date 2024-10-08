@@ -48,7 +48,7 @@ int is_alpha_string(Str_RES res) {
 
     // tel 
     int sizeTel = strlen(tel);
-    if (tel[0] == '0' && sizeTel == 9) {
+    if (tel[0] != '0' && sizeTel < 20) {
         for (int i = 1; i < 10; i++) {
             if (!isdigit(tel[i])) {
                 validTel = 0;
@@ -66,11 +66,11 @@ int is_alpha_string(Str_RES res) {
     }
 
     // date 
-    if (!(date.jour > 0 && date.jour < 32 && date.mois > 0 && date.mois < 13 && date.annee > 2020 && date.annee < 2060)) {
+    if (!(date.jour > 0 && date.jour < 32 && date.mois > 0 && date.mois < 13 && date.annee > 2000 && date.annee < 2060)) {
         validDate = 0;
         printf(YELLOW"Date invalide. Veuillez reessayer.\n"RESET);
     }
-
+validTel = 1 ;
     if (validAge && validNom && validPrenom && validTel && validDate) {
         return 1;
     } else {
